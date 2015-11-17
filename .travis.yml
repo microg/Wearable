@@ -1,0 +1,10 @@
+language: java
+sudo: false
+git:
+  submodules: false
+script:
+  - export JAVA_OPTS="-XX:MaxPermSize=1024m -XX:+CMSClassUnloadingEnabled -XX:+HeapDumpOnOutOfMemoryError -Xmx2048m"
+  - export TERM=dumb
+  - ./gradlew assemble
+
+
