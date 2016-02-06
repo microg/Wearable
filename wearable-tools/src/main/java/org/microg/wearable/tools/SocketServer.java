@@ -77,8 +77,8 @@ public class SocketServer {
         }
 
         @Override
-        public void onHearbeat(Heartbeat heartbeat) {
-            Log.d(TAG, "onHearbeat: " + heartbeat);
+        public void onHeartbeat(Heartbeat heartbeat) {
+            Log.d(TAG, "onHeartbeat: " + heartbeat);
         }
 
         @Override

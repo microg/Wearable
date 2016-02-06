@@ -29,73 +29,77 @@ public class SocketProxy {
     private static RootMessage clientConnect;
 
     public static void main(String[] args) throws IOException {
-        SocketWearableConnection.serverListen(5601, new WearableConnection.Listener() {
-            @Override
-            public void onConnected(WearableConnection connection) {
-                synchronized (this) {
-                    server = connection;
-                    if (clientConnect != null) {
-                        try {
-                            server.writeMessage(clientConnect);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }
-                System.out.println("[Server]onConnected: " + connection);
-            }
+        SocketWearableConnection.serverListen(5601, new ProxyServerListener());
+        SocketWearableConnection.clientConnect(5602, new ProxyClientListener());
+    }
 
-            @Override
-            public void onMessage(WearableConnection connection, RootMessage message) {
-                System.out.println("[Server]onMessage: " + message);
-                if (message.connect != null) {
-                    synchronized (this) {
-                        if (client == null) {
-                            serverConnect = message;
-                            return;
-                        }
+    private static class ProxyServerListener implements WearableConnection.Listener {
+        @Override
+        public void onConnected(WearableConnection connection) {
+            synchronized (this) {
+                server = connection;
+                if (clientConnect != null) {
+                    try {
+                        server.writeMessage(clientConnect);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
                     }
                 }
-                try {
-                    client.writeMessage(message);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
             }
-        });
-        SocketWearableConnection.clientConnect(5602, new WearableConnection.Listener() {
-            @Override
-            public void onConnected(WearableConnection connection) {
-                synchronized (this) {
-                    client = connection;
-                    if (serverConnect != null) {
-                        try {
-                            client.writeMessage(serverConnect);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }
-                System.out.println("[Client]onConnected: " + connection);
-            }
+            System.out.println("[Server]onConnected: " + connection);
+        }
 
-            @Override
-            public void onMessage(WearableConnection connection, RootMessage message) {
-                System.out.println("[Client]onMessage: " + message);
-                if (message.connect != null) {
-                    synchronized (this) {
-                        if (server == null) {
-                            clientConnect = message;
-                            return;
-                        }
+        @Override
+        public void onMessage(WearableConnection connection, RootMessage message) {
+            System.out.println("[Server]onMessage: " + message);
+            if (message.connect != null) {
+                synchronized (this) {
+                    if (client == null) {
+                        serverConnect = message;
+                        return;
                     }
                 }
-                try {
-                    server.writeMessage(message);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+            }
+            try {
+                client.writeMessage(message);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    private static class ProxyClientListener implements WearableConnection.Listener {
+        @Override
+        public void onConnected(WearableConnection connection) {
+            synchronized (this) {
+                client = connection;
+                if (serverConnect != null) {
+                    try {
+                        client.writeMessage(serverConnect);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
-        });
+            System.out.println("[Client]onConnected: " + connection);
+        }
+
+        @Override
+        public void onMessage(WearableConnection connection, RootMessage message) {
+            System.out.println("[Client]onMessage: " + message);
+            if (message.connect != null) {
+                synchronized (this) {
+                    if (server == null) {
+                        clientConnect = message;
+                        return;
+                    }
+                }
+            }
+            try {
+                server.writeMessage(message);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }

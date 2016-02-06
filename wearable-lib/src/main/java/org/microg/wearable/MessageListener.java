@@ -56,7 +56,7 @@ public abstract class MessageListener implements WearableConnection.Listener {
         } else if (message.rcpRequest != null) {
             onRcpRequest(message.rcpRequest);
         } else if (message.heartbeat != null) {
-            onHearbeat(message.heartbeat);
+            onHeartbeat(message.heartbeat);
         } else if (message.filePiece != null) {
             onFilePiece(message.filePiece);
         } else if (message.channelRequest != null) {
@@ -78,7 +78,7 @@ public abstract class MessageListener implements WearableConnection.Listener {
 
     public abstract void onRcpRequest(Request rcpRequest);
 
-    public abstract void onHearbeat(Heartbeat heartbeat);
+    public abstract void onHeartbeat(Heartbeat heartbeat);
 
     public abstract void onFilePiece(FilePiece filePiece);
 
