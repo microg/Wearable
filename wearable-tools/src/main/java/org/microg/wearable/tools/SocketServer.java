@@ -72,8 +72,8 @@ public class SocketServer {
         }
 
         @Override
-        public void onRcpRequest(Request rcpRequest) {
-            Log.d(TAG, "onRcpRequest: " + rcpRequest);
+        public void onRpcRequest(Request rpcRequest) {
+            Log.d(TAG, "onRcpRequest: " + rpcRequest);
         }
 
         @Override

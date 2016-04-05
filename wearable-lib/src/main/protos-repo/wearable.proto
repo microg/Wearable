@@ -116,7 +116,7 @@ message RootMessage {
     optional Connect connect = 7;
     optional SyncStart syncStart = 8;
     optional SetDataItem setDataItem = 9;
-    optional Request rcpRequest = 10;
+    optional Request rpcRequest = 10;
     optional Heartbeat heartbeat = 11;
     optional FilePiece filePiece = 12;
     optional bool unknown13 = 13;

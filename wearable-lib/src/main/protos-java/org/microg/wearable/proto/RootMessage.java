@@ -30,7 +30,7 @@ public final class RootMessage extends Message {
   public final SetDataItem setDataItem;
 
   @ProtoField(tag = 10)
-  public final Request rcpRequest;
+  public final Request rpcRequest;
 
   @ProtoField(tag = 11)
   public final Heartbeat heartbeat;
@@ -44,14 +44,14 @@ public final class RootMessage extends Message {
   @ProtoField(tag = 16)
   public final Request channelRequest;
 
-  public RootMessage(SetAsset setAsset, AckAsset ackAsset, FetchAsset fetchAsset, Connect connect, SyncStart syncStart, SetDataItem setDataItem, Request rcpRequest, Heartbeat heartbeat, FilePiece filePiece, Boolean unknown13, Request channelRequest) {
+  public RootMessage(SetAsset setAsset, AckAsset ackAsset, FetchAsset fetchAsset, Connect connect, SyncStart syncStart, SetDataItem setDataItem, Request rpcRequest, Heartbeat heartbeat, FilePiece filePiece, Boolean unknown13, Request channelRequest) {
     this.setAsset = setAsset;
     this.ackAsset = ackAsset;
     this.fetchAsset = fetchAsset;
     this.connect = connect;
     this.syncStart = syncStart;
     this.setDataItem = setDataItem;
-    this.rcpRequest = rcpRequest;
+    this.rpcRequest = rpcRequest;
     this.heartbeat = heartbeat;
     this.filePiece = filePiece;
     this.unknown13 = unknown13;
@@ -59,7 +59,7 @@ public final class RootMessage extends Message {
   }
 
   private RootMessage(Builder builder) {
-    this(builder.setAsset, builder.ackAsset, builder.fetchAsset, builder.connect, builder.syncStart, builder.setDataItem, builder.rcpRequest, builder.heartbeat, builder.filePiece, builder.unknown13, builder.channelRequest);
+    this(builder.setAsset, builder.ackAsset, builder.fetchAsset, builder.connect, builder.syncStart, builder.setDataItem, builder.rpcRequest, builder.heartbeat, builder.filePiece, builder.unknown13, builder.channelRequest);
     setBuilder(builder);
   }
 
@@ -74,7 +74,7 @@ public final class RootMessage extends Message {
         && equals(connect, o.connect)
         && equals(syncStart, o.syncStart)
         && equals(setDataItem, o.setDataItem)
-        && equals(rcpRequest, o.rcpRequest)
+        && equals(rpcRequest, o.rpcRequest)
         && equals(heartbeat, o.heartbeat)
         && equals(filePiece, o.filePiece)
         && equals(unknown13, o.unknown13)
@@ -91,7 +91,7 @@ public final class RootMessage extends Message {
       result = result * 37 + (connect != null ? connect.hashCode() : 0);
       result = result * 37 + (syncStart != null ? syncStart.hashCode() : 0);
       result = result * 37 + (setDataItem != null ? setDataItem.hashCode() : 0);
-      result = result * 37 + (rcpRequest != null ? rcpRequest.hashCode() : 0);
+      result = result * 37 + (rpcRequest != null ? rpcRequest.hashCode() : 0);
       result = result * 37 + (heartbeat != null ? heartbeat.hashCode() : 0);
       result = result * 37 + (filePiece != null ? filePiece.hashCode() : 0);
       result = result * 37 + (unknown13 != null ? unknown13.hashCode() : 0);
@@ -109,7 +109,7 @@ public final class RootMessage extends Message {
     public Connect connect;
     public SyncStart syncStart;
     public SetDataItem setDataItem;
-    public Request rcpRequest;
+    public Request rpcRequest;
     public Heartbeat heartbeat;
     public FilePiece filePiece;
     public Boolean unknown13;
@@ -127,7 +127,7 @@ public final class RootMessage extends Message {
       this.connect = message.connect;
       this.syncStart = message.syncStart;
       this.setDataItem = message.setDataItem;
-      this.rcpRequest = message.rcpRequest;
+      this.rpcRequest = message.rpcRequest;
       this.heartbeat = message.heartbeat;
       this.filePiece = message.filePiece;
       this.unknown13 = message.unknown13;
@@ -164,8 +164,8 @@ public final class RootMessage extends Message {
       return this;
     }
 
-    public Builder rcpRequest(Request rcpRequest) {
-      this.rcpRequest = rcpRequest;
+    public Builder rpcRequest(Request rpcRequest) {
+      this.rpcRequest = rpcRequest;
       return this;
     }
 

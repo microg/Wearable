@@ -53,8 +53,8 @@ public abstract class MessageListener implements WearableConnection.Listener {
             onSyncStart(message.syncStart);
         } else if (message.setDataItem != null) {
             onSetDataItem(message.setDataItem);
-        } else if (message.rcpRequest != null) {
-            onRcpRequest(message.rcpRequest);
+        } else if (message.rpcRequest != null) {
+            onRpcRequest(message.rpcRequest);
         } else if (message.heartbeat != null) {
             onHeartbeat(message.heartbeat);
         } else if (message.filePiece != null) {
@@ -76,7 +76,7 @@ public abstract class MessageListener implements WearableConnection.Listener {
 
     public abstract void onSetDataItem(SetDataItem setDataItem);
 
-    public abstract void onRcpRequest(Request rcpRequest);
+    public abstract void onRpcRequest(Request rpcRequest);
 
     public abstract void onHeartbeat(Heartbeat heartbeat);
 
