@@ -22,6 +22,17 @@ buildscript {
 
 apply plugin: 'java'
 
+String getMyVersionName() {
+    def stdout = new ByteArrayOutputStream()
+    if (rootProject.file("gradlew").exists())
+        exec { commandLine 'git', 'describe', '--tags', '--always', '--dirty'; standardOutput = stdout }
+    else // automatic build system, don't tag dirty
+        exec { commandLine 'git', 'describe', '--tags', '--always'; standardOutput = stdout }
+    return stdout.toString().trim().substring(1)
+}
+
+version = getMyVersionName();
+
 repositories {
     jcenter()
 }
