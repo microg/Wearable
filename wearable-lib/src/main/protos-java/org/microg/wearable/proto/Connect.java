@@ -15,8 +15,8 @@ public final class Connect extends Message {
   public static final String DEFAULT_NAME = "";
   public static final Long DEFAULT_PEERANDROIDID = 0L;
   public static final Integer DEFAULT_UNKNOWN4 = 0;
-  public static final Integer DEFAULT_UNKNOWN5 = 0;
-  public static final Integer DEFAULT_UNKNOWN6 = 0;
+  public static final Integer DEFAULT_PEERVERSION = 0;
+  public static final Integer DEFAULT_PEERMINIMUMVERSION = 0;
   public static final String DEFAULT_NETWORKID = "";
 
   @ProtoField(tag = 1, type = STRING)
@@ -32,26 +32,26 @@ public final class Connect extends Message {
   public final Integer unknown4;
 
   @ProtoField(tag = 5, type = INT32)
-  public final Integer unknown5;
+  public final Integer peerVersion;
 
   @ProtoField(tag = 6, type = INT32)
-  public final Integer unknown6;
+  public final Integer peerMinimumVersion;
 
   @ProtoField(tag = 7, type = STRING)
   public final String networkId;
 
-  public Connect(String id, String name, Long peerAndroidId, Integer unknown4, Integer unknown5, Integer unknown6, String networkId) {
+  public Connect(String id, String name, Long peerAndroidId, Integer unknown4, Integer peerVersion, Integer peerMinimumVersion, String networkId) {
     this.id = id;
     this.name = name;
     this.peerAndroidId = peerAndroidId;
     this.unknown4 = unknown4;
-    this.unknown5 = unknown5;
-    this.unknown6 = unknown6;
+    this.peerVersion = peerVersion;
+    this.peerMinimumVersion = peerMinimumVersion;
     this.networkId = networkId;
   }
 
   private Connect(Builder builder) {
-    this(builder.id, builder.name, builder.peerAndroidId, builder.unknown4, builder.unknown5, builder.unknown6, builder.networkId);
+    this(builder.id, builder.name, builder.peerAndroidId, builder.unknown4, builder.peerVersion, builder.peerMinimumVersion, builder.networkId);
     setBuilder(builder);
   }
 
@@ -64,8 +64,8 @@ public final class Connect extends Message {
         && equals(name, o.name)
         && equals(peerAndroidId, o.peerAndroidId)
         && equals(unknown4, o.unknown4)
-        && equals(unknown5, o.unknown5)
-        && equals(unknown6, o.unknown6)
+        && equals(peerVersion, o.peerVersion)
+        && equals(peerMinimumVersion, o.peerMinimumVersion)
         && equals(networkId, o.networkId);
   }
 
@@ -77,8 +77,8 @@ public final class Connect extends Message {
       result = result * 37 + (name != null ? name.hashCode() : 0);
       result = result * 37 + (peerAndroidId != null ? peerAndroidId.hashCode() : 0);
       result = result * 37 + (unknown4 != null ? unknown4.hashCode() : 0);
-      result = result * 37 + (unknown5 != null ? unknown5.hashCode() : 0);
-      result = result * 37 + (unknown6 != null ? unknown6.hashCode() : 0);
+      result = result * 37 + (peerVersion != null ? peerVersion.hashCode() : 0);
+      result = result * 37 + (peerMinimumVersion != null ? peerMinimumVersion.hashCode() : 0);
       result = result * 37 + (networkId != null ? networkId.hashCode() : 0);
       hashCode = result;
     }
@@ -91,8 +91,8 @@ public final class Connect extends Message {
     public String name;
     public Long peerAndroidId;
     public Integer unknown4;
-    public Integer unknown5;
-    public Integer unknown6;
+    public Integer peerVersion;
+    public Integer peerMinimumVersion;
     public String networkId;
 
     public Builder() {
@@ -105,8 +105,8 @@ public final class Connect extends Message {
       this.name = message.name;
       this.peerAndroidId = message.peerAndroidId;
       this.unknown4 = message.unknown4;
-      this.unknown5 = message.unknown5;
-      this.unknown6 = message.unknown6;
+      this.peerVersion = message.peerVersion;
+      this.peerMinimumVersion = message.peerMinimumVersion;
       this.networkId = message.networkId;
     }
 
@@ -130,13 +130,13 @@ public final class Connect extends Message {
       return this;
     }
 
-    public Builder unknown5(Integer unknown5) {
-      this.unknown5 = unknown5;
+    public Builder peerVersion(Integer peerVersion) {
+      this.peerVersion = peerVersion;
       return this;
     }
 
-    public Builder unknown6(Integer unknown6) {
-      this.unknown6 = unknown6;
+    public Builder peerMinimumVersion(Integer peerMinimumVersion) {
+      this.peerMinimumVersion = peerMinimumVersion;
       return this;
     }
 

@@ -29,8 +29,8 @@ public class SocketProxy {
     private static RootMessage clientConnect;
 
     public static void main(String[] args) throws IOException {
-        SocketWearableConnection.serverListen(5601, new ProxyServerListener());
-        SocketWearableConnection.clientConnect(5602, new ProxyClientListener());
+        SocketWearableConnection.serverListen(5601, new ProxyServerListener()).start();
+        SocketWearableConnection.clientConnect(5602, new ProxyClientListener()).start();
     }
 
     private static class ProxyServerListener implements WearableConnection.Listener {
@@ -66,6 +66,11 @@ public class SocketProxy {
                 throw new RuntimeException(e);
             }
         }
+
+        @Override
+        public void onDisconnected() {
+            System.out.println("[Server]onDisconnected");
+        }
     }
 
     private static class ProxyClientListener implements WearableConnection.Listener {
@@ -100,6 +105,11 @@ public class SocketProxy {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        }
+
+        @Override
+        public void onDisconnected() {
+            System.out.println("[Server]onDisconnected");
         }
     }
 }

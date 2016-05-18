@@ -35,6 +35,11 @@ public abstract class MessageListener implements WearableConnection.Listener {
         this.connection = connection;
     }
 
+    @Override
+    public void onDisconnected() {
+        this.connection = null;
+    }
+
     public WearableConnection getConnection() {
         return connection;
     }

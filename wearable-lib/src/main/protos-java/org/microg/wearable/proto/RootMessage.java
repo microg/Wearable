@@ -9,7 +9,7 @@ import static com.squareup.wire.Message.Datatype.BOOL;
 
 public final class RootMessage extends Message {
 
-  public static final Boolean DEFAULT_UNKNOWN13 = false;
+  public static final Boolean DEFAULT_HASASSET = false;
 
   @ProtoField(tag = 4)
   public final SetAsset setAsset;
@@ -39,12 +39,12 @@ public final class RootMessage extends Message {
   public final FilePiece filePiece;
 
   @ProtoField(tag = 13, type = BOOL)
-  public final Boolean unknown13;
+  public final Boolean hasAsset;
 
   @ProtoField(tag = 16)
   public final Request channelRequest;
 
-  public RootMessage(SetAsset setAsset, AckAsset ackAsset, FetchAsset fetchAsset, Connect connect, SyncStart syncStart, SetDataItem setDataItem, Request rpcRequest, Heartbeat heartbeat, FilePiece filePiece, Boolean unknown13, Request channelRequest) {
+  public RootMessage(SetAsset setAsset, AckAsset ackAsset, FetchAsset fetchAsset, Connect connect, SyncStart syncStart, SetDataItem setDataItem, Request rpcRequest, Heartbeat heartbeat, FilePiece filePiece, Boolean hasAsset, Request channelRequest) {
     this.setAsset = setAsset;
     this.ackAsset = ackAsset;
     this.fetchAsset = fetchAsset;
@@ -54,12 +54,12 @@ public final class RootMessage extends Message {
     this.rpcRequest = rpcRequest;
     this.heartbeat = heartbeat;
     this.filePiece = filePiece;
-    this.unknown13 = unknown13;
+    this.hasAsset = hasAsset;
     this.channelRequest = channelRequest;
   }
 
   private RootMessage(Builder builder) {
-    this(builder.setAsset, builder.ackAsset, builder.fetchAsset, builder.connect, builder.syncStart, builder.setDataItem, builder.rpcRequest, builder.heartbeat, builder.filePiece, builder.unknown13, builder.channelRequest);
+    this(builder.setAsset, builder.ackAsset, builder.fetchAsset, builder.connect, builder.syncStart, builder.setDataItem, builder.rpcRequest, builder.heartbeat, builder.filePiece, builder.hasAsset, builder.channelRequest);
     setBuilder(builder);
   }
 
@@ -77,7 +77,7 @@ public final class RootMessage extends Message {
         && equals(rpcRequest, o.rpcRequest)
         && equals(heartbeat, o.heartbeat)
         && equals(filePiece, o.filePiece)
-        && equals(unknown13, o.unknown13)
+        && equals(hasAsset, o.hasAsset)
         && equals(channelRequest, o.channelRequest);
   }
 
@@ -94,7 +94,7 @@ public final class RootMessage extends Message {
       result = result * 37 + (rpcRequest != null ? rpcRequest.hashCode() : 0);
       result = result * 37 + (heartbeat != null ? heartbeat.hashCode() : 0);
       result = result * 37 + (filePiece != null ? filePiece.hashCode() : 0);
-      result = result * 37 + (unknown13 != null ? unknown13.hashCode() : 0);
+      result = result * 37 + (hasAsset != null ? hasAsset.hashCode() : 0);
       result = result * 37 + (channelRequest != null ? channelRequest.hashCode() : 0);
       hashCode = result;
     }
@@ -112,7 +112,7 @@ public final class RootMessage extends Message {
     public Request rpcRequest;
     public Heartbeat heartbeat;
     public FilePiece filePiece;
-    public Boolean unknown13;
+    public Boolean hasAsset;
     public Request channelRequest;
 
     public Builder() {
@@ -130,7 +130,7 @@ public final class RootMessage extends Message {
       this.rpcRequest = message.rpcRequest;
       this.heartbeat = message.heartbeat;
       this.filePiece = message.filePiece;
-      this.unknown13 = message.unknown13;
+      this.hasAsset = message.hasAsset;
       this.channelRequest = message.channelRequest;
     }
 
@@ -179,8 +179,8 @@ public final class RootMessage extends Message {
       return this;
     }
 
-    public Builder unknown13(Boolean unknown13) {
-      this.unknown13 = unknown13;
+    public Builder hasAsset(Boolean hasAsset) {
+      this.hasAsset = hasAsset;
       return this;
     }
 

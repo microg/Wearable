@@ -34,9 +34,15 @@ public abstract class ServerMessageListener extends MessageListener {
         super.onConnected(connection);
         try {
             connection.writeMessage(new RootMessage.Builder().connect(localConnect).build());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (IOException ignored) {
+            // Will disconnect soon
         }
+    }
+
+    @Override
+    public void onDisconnected() {
+        super.onDisconnected();
+        remoteConnect = null;
     }
 
     @Override

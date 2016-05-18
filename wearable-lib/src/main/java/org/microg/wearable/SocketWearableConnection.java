@@ -20,13 +20,18 @@ import com.squareup.wire.Wire;
 
 import org.microg.wearable.proto.MessagePiece;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Arrays;
 
 public class SocketWearableConnection extends WearableConnection {
+    private final int MAX_PIECE_SIZE = 20 * 1024 * 1024;
     private final Socket socket;
     private final DataInputStream is;
     private final DataOutputStream os;
@@ -46,6 +51,10 @@ public class SocketWearableConnection extends WearableConnection {
 
     protected MessagePiece readMessagePiece() throws IOException {
         int len = is.readInt();
+        if (len > MAX_PIECE_SIZE) {
+            throw new IOException("Piece size " + len + " exceeded limit of " + MAX_PIECE_SIZE + " bytes.");
+        }
+        System.out.println("Reading piece of length " + len);
         byte[] bytes = new byte[len];
         is.readFully(bytes);
         return new Wire().parseFrom(bytes, MessagePiece.class);
@@ -54,39 +63,5 @@ public class SocketWearableConnection extends WearableConnection {
     @Override
     protected void close() throws IOException {
         socket.close();
-    }
-
-
-    public static void serverListen(int port, final Listener listener) throws IOException {
-        final ServerSocket serverSocket = new ServerSocket(port);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Socket socket;
-                    while ((socket = serverSocket.accept()) != null) {
-                        SocketWearableConnection connection = new SocketWearableConnection(socket, listener);
-                        connection.run();
-                    }
-                } catch (IOException e) {
-                    // quit
-                }
-            }
-        }).start();
-    }
-
-    public static void clientConnect(final int port, final Listener listener) throws IOException {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Socket socket = new Socket("127.0.0.1", port);
-                    SocketWearableConnection connection = new SocketWearableConnection(socket, listener);
-                    connection.run();
-                } catch (IOException e) {
-                    // quit
-                }
-            }
-        }).start();
     }
 }

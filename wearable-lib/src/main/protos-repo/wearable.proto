@@ -65,8 +65,8 @@ message Connect {
     optional string name = 2;
     optional int64 peerAndroidId = 3;
     optional int32 unknown4 = 4;
-    optional int32 unknown5 = 5;
-    optional int32 unknown6 = 6;
+    optional int32 peerVersion = 5;
+    optional int32 peerMinimumVersion = 6;
     optional string networkId = 7;
 }
 
@@ -119,7 +119,7 @@ message RootMessage {
     optional Request rpcRequest = 10;
     optional Heartbeat heartbeat = 11;
     optional FilePiece filePiece = 12;
-    optional bool unknown13 = 13;
+    optional bool hasAsset = 13;
     optional Request channelRequest = 16;
 }
 

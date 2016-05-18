@@ -104,8 +104,9 @@ public class SocketServer {
                 .name("Emulator Test")
                 .peerAndroidId(peerAndroidId)
                 .unknown4(3)
-                .unknown5(1)
+                .peerVersion(1)
+                .peerMinimumVersion(0)
                 .networkId(networkId)
-                .build()));
+                .build())).start();
     }
 }

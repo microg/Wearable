@@ -78,6 +78,7 @@ public abstract class WearableConnection implements Runnable {
 
     protected RootMessage readMessage() throws IOException {
         while (true) {
+            System.out.println("Waiting for new message...");
             MessagePiece piece = readMessagePiece();
             if (piece.totalPieces == 1) {
                 return wire.parseFrom(piece.data.toByteArray(), RootMessage.class);
@@ -132,6 +133,7 @@ public abstract class WearableConnection implements Runnable {
             while ((message = readMessage()) != null) {
                 listener.onMessage(this, message);
             }
+            listener.onDisconnected();
         } catch (IOException e) {
             // quit
         }
@@ -140,5 +142,6 @@ public abstract class WearableConnection implements Runnable {
     public interface Listener {
         void onConnected(WearableConnection connection);
         void onMessage(WearableConnection connection, RootMessage message);
+        void onDisconnected();
     }
 }
