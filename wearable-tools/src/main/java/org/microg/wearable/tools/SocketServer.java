@@ -17,7 +17,7 @@
 package org.microg.wearable.tools;
 
 import org.microg.wearable.ServerMessageListener;
-import org.microg.wearable.SocketWearableConnection;
+import org.microg.wearable.SocketConnectionThread;
 import org.microg.wearable.proto.AckAsset;
 import org.microg.wearable.proto.Connect;
 import org.microg.wearable.proto.FetchAsset;
@@ -99,7 +99,7 @@ public class SocketServer {
         final long peerAndroidId = r.nextLong();
         final String networkId = Long.toString(r.nextLong());
 
-        SocketWearableConnection.serverListen(5601, new Listener(new Connect.Builder()
+        SocketConnectionThread.serverListen(5601, new Listener(new Connect.Builder()
                 .id(nodeId)
                 .name("Emulator Test")
                 .peerAndroidId(peerAndroidId)

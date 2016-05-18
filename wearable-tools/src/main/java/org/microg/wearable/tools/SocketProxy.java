@@ -16,7 +16,7 @@
 
 package org.microg.wearable.tools;
 
-import org.microg.wearable.SocketWearableConnection;
+import org.microg.wearable.SocketConnectionThread;
 import org.microg.wearable.WearableConnection;
 import org.microg.wearable.proto.RootMessage;
 
@@ -29,8 +29,8 @@ public class SocketProxy {
     private static RootMessage clientConnect;
 
     public static void main(String[] args) throws IOException {
-        SocketWearableConnection.serverListen(5601, new ProxyServerListener()).start();
-        SocketWearableConnection.clientConnect(5602, new ProxyClientListener()).start();
+        SocketConnectionThread.serverListen(5601, new ProxyServerListener()).start();
+        SocketConnectionThread.clientConnect(5602, new ProxyClientListener()).start();
     }
 
     private static class ProxyServerListener implements WearableConnection.Listener {
