@@ -51,7 +51,7 @@ public class SocketProxy {
 
         @Override
         public void onMessage(WearableConnection connection, RootMessage message) {
-            System.out.println("[Server]onMessage: " + message);
+            describeMessage("Server", message);
             if (message.connect != null) {
                 synchronized (this) {
                     if (client == null) {
@@ -91,7 +91,7 @@ public class SocketProxy {
 
         @Override
         public void onMessage(WearableConnection connection, RootMessage message) {
-            System.out.println("[Client]onMessage: " + message);
+            describeMessage("Client", message);
             if (message.connect != null) {
                 synchronized (this) {
                     if (server == null) {
@@ -110,6 +110,19 @@ public class SocketProxy {
         @Override
         public void onDisconnected() {
             System.out.println("[Server]onDisconnected");
+        }
+    }
+
+    private static void describeMessage(String prefix, RootMessage m) {
+        System.out.println("[" + prefix + "]onMessage: " + m);
+        if (m.setDataItem != null && m.setDataItem.data != null) {
+            System.out.println("[" + prefix + "]data: " + m.setDataItem.data.base64());
+        }
+        if (m.setAsset != null && m.setAsset.data != null) {
+            System.out.println("[" + prefix + "]data: " + m.setAsset.data.base64());
+        }
+        if (m.filePiece != null && m.filePiece.piece != null) {
+            System.out.println("[" + prefix + "]data: " + m.filePiece.piece.base64());
         }
     }
 }
