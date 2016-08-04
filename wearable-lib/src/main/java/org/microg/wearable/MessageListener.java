@@ -66,6 +66,8 @@ public abstract class MessageListener implements WearableConnection.Listener {
             onFilePiece(message.filePiece);
         } else if (message.channelRequest != null) {
             onChannelRequest(message.channelRequest);
+        } else {
+            System.err.println("Unknown message: " + message);
         }
     }
 

@@ -123,7 +123,7 @@ public abstract class WearableConnection implements Runnable {
 
     protected abstract MessagePiece readMessagePiece() throws IOException;
 
-    protected abstract void close() throws IOException;
+    public abstract void close() throws IOException;
 
     @Override
     public void run() {
@@ -133,10 +133,11 @@ public abstract class WearableConnection implements Runnable {
             while ((message = readMessage()) != null) {
                 listener.onMessage(this, message);
             }
-            listener.onDisconnected();
         } catch (IOException e) {
             // quit
         }
+        System.out.println("WearableConnection closed");
+        listener.onDisconnected();
     }
 
     public interface Listener {

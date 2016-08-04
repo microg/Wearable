@@ -61,7 +61,7 @@ public class SocketWearableConnection extends WearableConnection {
     }
 
     @Override
-    protected void close() throws IOException {
+    public void close() throws IOException {
         socket.close();
     }
 }
