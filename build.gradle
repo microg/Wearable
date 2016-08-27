@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-apply plugin: 'java'
+subprojects {
+    repositories {
+        jcenter()
+    }
 
-dependencies {
-    compile project(":wearable-lib")
-}
-
-if (file('user.gradle').exists()) {
-    apply from: 'user.gradle'
+    tasks.withType(JavaCompile) {
+        sourceCompatibility = JavaVersion.VERSION_1_7
+        targetCompatibility = JavaVersion.VERSION_1_7
+    }
 }

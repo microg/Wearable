@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 microG Project Team
+ * Copyright 2013-2016 microG Project Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,6 @@
  * limitations under the License.
  */
 
-buildscript {
-    repositories {
-        jcenter()
-    }
-}
-
 apply plugin: 'java'
 
 String getMyVersionName() {
@@ -33,22 +27,15 @@ String getMyVersionName() {
 
 version = getMyVersionName();
 
-repositories {
-    jcenter()
-}
-
 dependencies {
     compile 'com.squareup.wire:wire-runtime:1.6.1'
 }
-
 
 sourceSets {
     main {
         java.srcDirs += 'src/main/protos-java'
     }
 }
-
-sourceCompatibility = JavaVersion.VERSION_1_6
 
 if (file('user.gradle').exists()) {
     apply from: 'user.gradle'
