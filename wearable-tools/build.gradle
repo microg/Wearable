@@ -6,7 +6,7 @@
 apply plugin: 'java'
 
 dependencies {
-    implementation project(":wearable-lib")
+    implementation project(':wearable')
 }
 
 if (file('user.gradle').exists()) {
