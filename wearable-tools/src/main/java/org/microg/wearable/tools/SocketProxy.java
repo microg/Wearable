@@ -1,17 +1,6 @@
 /*
- * Copyright (C) 2013-2017 microG Project Team
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * SPDX-FileCopyrightText: 2015, microG Project Team
+ * SPDX-License-Identifier: Apache-2.0
  */
 
 package org.microg.wearable.tools;
@@ -30,7 +19,6 @@ public class SocketProxy {
 
     public static void main(String[] args) throws IOException {
         SocketConnectionThread.serverListen(5601, new ProxyServerListener()).start();
-        SocketConnectionThread.clientConnect(5602, new ProxyClientListener()).start();
     }
 
     private static class ProxyServerListener implements WearableConnection.Listener {
@@ -42,7 +30,7 @@ public class SocketProxy {
                     try {
                         server.writeMessage(clientConnect);
                     } catch (IOException e) {
-                        throw new RuntimeException(e);
+                        System.out.println(e);
                     }
                 }
             }
@@ -56,6 +44,7 @@ public class SocketProxy {
                 synchronized (this) {
                     if (client == null) {
                         serverConnect = message;
+                        SocketConnectionThread.clientConnect(5602, new ProxyClientListener()).start();
                         return;
                     }
                 }
@@ -63,7 +52,7 @@ public class SocketProxy {
             try {
                 client.writeMessage(message);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                System.out.println(e);
             }
         }
 
@@ -82,7 +71,7 @@ public class SocketProxy {
                     try {
                         client.writeMessage(serverConnect);
                     } catch (IOException e) {
-                        throw new RuntimeException(e);
+                        System.out.println(e);
                     }
                 }
             }
@@ -103,13 +92,13 @@ public class SocketProxy {
             try {
                 server.writeMessage(message);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                System.out.println(e);
             }
         }
 
         @Override
         public void onDisconnected() {
-            System.out.println("[Server]onDisconnected");
+            System.out.println("[Client]onDisconnected");
         }
     }
 
@@ -119,10 +108,10 @@ public class SocketProxy {
             System.out.println("[" + prefix + "]data: " + m.setDataItem.data.base64());
         }
         if (m.setAsset != null && m.setAsset.data != null) {
-            System.out.println("[" + prefix + "]data: " + m.setAsset.data.base64());
+            System.out.println("[" + prefix + "]asset: " + m.setAsset.data.base64());
         }
         if (m.filePiece != null && m.filePiece.piece != null) {
-            System.out.println("[" + prefix + "]data: " + m.filePiece.piece.base64());
+            System.out.println("[" + prefix + "]file: " + m.filePiece.piece.base64());
         }
     }
 }

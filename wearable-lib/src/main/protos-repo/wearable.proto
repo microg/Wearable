@@ -1,3 +1,8 @@
+/*
+ * SPDX-FileCopyrightText: 2015, microG Project Team
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 option java_package = "org.microg.wearable.proto";
 option java_outer_classname = "WearableProto";
 

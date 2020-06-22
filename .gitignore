@@ -1,8 +1,12 @@
+# SPDX-FileCopyrightText: 2013, microG Project Team
+# SPDX-License-Identifier: CC0-1.0
+
 *.iml
 gen/
 bin/
 build/
-.gradle/
 user.gradle
+.gradle/
 local.properties
-.directory
+.idea/
+BuildConfig.java

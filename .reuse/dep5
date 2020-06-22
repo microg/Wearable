@@ -1,0 +1,5 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+
+Files: wearable-lib/src/main/protos-java/*
+Copyright: 2015, microG Project Team. Automatically generated from .proto file
+License: Apache-2.0
