@@ -17,6 +17,11 @@ sourceSets {
     }
 }
 
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
 afterEvaluate {
     publishing {
         publications {
