@@ -33,7 +33,7 @@ public class SocketWearableConnection extends WearableConnection {
     }
 
     protected void writeMessagePiece(MessagePiece piece) throws IOException {
-        byte[] bytes = piece.toByteArray();
+        byte[] bytes = MessagePiece.ADAPTER.encode(piece);
         os.writeInt(bytes.length);
         os.write(bytes);
     }
@@ -46,7 +46,7 @@ public class SocketWearableConnection extends WearableConnection {
         System.out.println("Reading piece of length " + len);
         byte[] bytes = new byte[len];
         is.readFully(bytes);
-        return new Wire().parseFrom(bytes, MessagePiece.class);
+        return MessagePiece.ADAPTER.decode(bytes);
     }
 
     @Override
