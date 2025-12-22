@@ -1,20 +1,19 @@
+
 /*
  * SPDX-FileCopyrightText: 2015, microG Project Team
  * SPDX-License-Identifier: Apache-2.0
  */
-syntax = "proto3";
 
 option java_package = "org.microg.wearable.proto";
 option java_outer_classname = "WearableProto";
-option java_multiple_files = true;
 
 message AckAsset {
-    string digest = 1;
+    optional string digest = 1;
 }
 
 message AppKey {
-    string packageName = 1;
-    string signatureDigest = 2;
+    optional string packageName = 1;
+    optional string signatureDigest = 2;
 }
 
 message AppKeys {
@@ -23,72 +22,72 @@ message AppKeys {
 
 message Asset {
     // TODO
-    string digest = 4;
+    optional string digest = 4;
 }
 
 message AssetEntry {
-    string key = 1;
-    Asset value = 2;
-    int32 unknown3 = 3;
+    optional string key = 1;
+    optional Asset value = 2;
+    optional int32 unknown3 = 3;
 }
 
 message ChannelControlRequest {
-    int32 type = 1;
-    int64 channelId = 2;
-    bool fromChannelOperator = 3;
-    string packageName = 4;
-    string signatureDigest = 5;
-    string path = 6;
-    int32 closeErrorCode = 7;
+    optional int32 type = 1;
+    optional int64 channelId = 2;
+    optional bool fromChannelOperator = 3;
+    optional string packageName = 4;
+    optional string signatureDigest = 5;
+    optional string path = 6;
+    optional int32 closeErrorCode = 7;
 }
 
 message ChannelDataAckRequest {
-    ChannelDataHeader header = 1;
-    bool finalMessage = 2;
+    optional ChannelDataHeader header = 1;
+    optional bool finalMessage = 2;
 }
 
 message ChannelDataHeader {
-    int64 channelId = 1;
-    bool fromChannelOperator = 2;
-    int64 requestId = 3;
+    optional int64 channelId = 1;
+    optional bool fromChannelOperator = 2;
+    optional int64 requestId = 3;
 }
 
 message ChannelDataRequest {
-    ChannelDataHeader header = 1;
-    bytes payload = 2;
-    bool finalMessage = 3;
+    optional ChannelDataHeader header = 1;
+    optional bytes payload = 2;
+    optional bool finalMessage = 3;
 }
 
 message ChannelRequest {
-    ChannelControlRequest channelControlRequest = 2;
-    ChannelDataRequest channelDataRequest = 3;
-    ChannelDataAckRequest channelDataAckRequest = 4;
-    int32 version = 6;
-    int32 origin = 7;
+    optional ChannelControlRequest channelControlRequest = 2;
+    optional ChannelDataRequest channelDataRequest = 3;
+    optional ChannelDataAckRequest channelDataAckRequest = 4;
+    optional int32 version = 6;
+    optional int32 origin = 7;
 }
 
 message Connect {
-    string id = 1;
-    string name = 2;
-    int64 peerAndroidId = 3;
-    int32 unknown4 = 4;
-    int32 peerVersion = 5;
-    int32 peerMinimumVersion = 6;
-    string networkId = 7;
+    optional string id = 1;
+    optional string name = 2;
+    optional int64 peerAndroidId = 3;
+    optional int32 unknown4 = 4;
+    optional int32 peerVersion = 5;
+    optional int32 peerMinimumVersion = 6;
+    optional string networkId = 7;
 }
 
 message FetchAsset {
-    string packageName = 1;
-    string assetName = 2;
-    bool permission = 3;
-    string signatureDigest = 4;
+    optional string packageName = 1;
+    optional string assetName = 2;
+    optional bool permission = 3;
+    optional string signatureDigest = 4;
 }
 
 message FilePiece {
-    string fileName = 1;
-    bool finalPiece = 2;
-    bytes piece = 3;
-    string digest = 4;
+    optional string fileName = 1;
+    optional bool finalPiece = 2;
+    optional bytes piece = 3;
+    optional string digest = 4;
 }
 
 message Heartbeat {
@@ -96,66 +95,68 @@ message Heartbeat {
 }
 
 message MessagePiece {
-    bytes data = 1;
-    string digest = 2;
-    int32 thisPiece = 3;
-    int32 totalPieces = 4;
-    int32 queueId = 5;
+    optional bytes data = 1;
+    optional string digest = 2;
+    optional int32 thisPiece = 3;
+    optional int32 totalPieces = 4;
+    optional int32 queueId = 5;
 }
 
 message Request {
-    int32 requestId = 1;
-    string packageName = 2;
-    string signatureDigest = 3;
-    string targetNodeId = 4;
-    int32 unknown5 = 5;
-    string path = 6;
-    bytes rawData = 7;
-    string sourceNodeId = 8;
-    ChannelRequest request = 9;
-    int32 generation = 10;
+    optional int32 requestId = 1;
+    optional string packageName = 2;
+    optional string signatureDigest = 3;
+    optional string targetNodeId = 4;
+    optional int32 unknown5 = 5;
+    optional string path = 6;
+    optional bytes rawData = 7;
+    optional string sourceNodeId = 8;
+    optional ChannelRequest request = 9;
+    optional int32 generation = 10;
 }
 
 message RootMessage {
-    SetAsset setAsset = 4;
-    AckAsset ackAsset = 5;
-    FetchAsset fetchAsset = 6;
-    Connect connect = 7;
-    SyncStart syncStart = 8;
-    SetDataItem setDataItem = 9;
-    Request rpcRequest = 10;
-    Heartbeat heartbeat = 11;
-    FilePiece filePiece = 12;
-    bool hasAsset = 13;
-    Request channelRequest = 16;
+    optional SetAsset setAsset = 4;
+    optional AckAsset ackAsset = 5;
+    optional FetchAsset fetchAsset = 6;
+    optional Connect connect = 7;
+    optional SyncStart syncStart = 8;
+    optional SetDataItem setDataItem = 9;
+    optional Request rpcRequest = 10;
+    optional Heartbeat heartbeat = 11;
+    optional FilePiece filePiece = 12;
+    optional bool hasAsset = 13;
+    optional Request channelRequest = 16;
 }
 
 message SetAsset {
-    string digest = 1;
-    bytes data = 2;
-    AppKeys appkeys = 3;
+    optional string digest = 1;
+    optional bytes data = 2;
+    optional AppKeys appkeys = 3;
 }
 
 message SetDataItem {
-    string packageName = 1;
-    string uri = 2;
+    optional string packageName = 1;
+    optional string uri = 2;
     repeated string unknown3 = 3;
-    bytes data = 4;
-    int64 seqId = 5;
-    bool deleted = 6;
-    string source = 7;
+    optional bytes data = 4;
+    optional int64 seqId = 5;
+    optional bool deleted = 6;
+    optional string source = 7;
     repeated AssetEntry assets = 8;
-    string signatureDigest = 9;
-    int64 lastModified = 10;
+    optional string signatureDigest = 9;
+    optional int64 lastModified = 10;
 }
 
 message SyncStart {
-    int64 receivedSeqId = 1;
+    optional int64 receivedSeqId = 1;
     repeated SyncTableEntry syncTable = 2;
-    int32 version = 3;
+    optional int32 version = 3;
 }
 
 message SyncTableEntry {
-    string key = 1;
-    int64 value = 2;
+    optional string key = 1;
+    optional int64 value = 2;
 }
+
+
