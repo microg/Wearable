@@ -4,7 +4,15 @@
  */
 
 buildscript {
-    ext.wireVersion = '1.6.1'
+    ext.wireVersion = '4.9.9'
+
+    dependencies {
+        classpath "com.squareup.wire:wire-gradle-plugin:$wireVersion"
+    }
+    repositories {
+        mavenCentral()
+        google()
+    }
 }
 
 String gitDescribeVersion() {
@@ -25,6 +33,7 @@ allprojects {
 
 subprojects {
     repositories {
-        jcenter()
+        mavenCentral()
+        google()
     }
 }

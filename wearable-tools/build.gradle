@@ -7,6 +7,7 @@ apply plugin: 'java'
 
 dependencies {
     implementation project(':wearable')
+    implementation "com.squareup.wire:wire-runtime:$wireVersion"
 }
 
 if (file('user.gradle').exists()) {

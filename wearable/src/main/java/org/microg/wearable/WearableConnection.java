@@ -23,7 +23,6 @@ import okio.ByteString;
 
 public abstract class WearableConnection implements Runnable {
     private static String B64ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
-    protected static Wire wire = new Wire();
 
     private HashMap<Integer, List<MessagePiece>> piecesQueues = new HashMap<Integer, List<MessagePiece>>();
     private final Listener listener;
@@ -54,7 +53,7 @@ public abstract class WearableConnection implements Runnable {
     }
 
     public void writeMessage(RootMessage message) throws IOException {
-        byte[] bytes = message.toByteArray();
+        byte[] bytes = RootMessage.ADAPTER.encode(message);
         // TODO: cut in pieces
         writeMessagePiece(new MessagePiece.Builder()
                 .data(ByteString.of(bytes))
@@ -70,7 +69,7 @@ public abstract class WearableConnection implements Runnable {
             System.out.println("Waiting for new message...");
             MessagePiece piece = readMessagePiece();
             if (piece.totalPieces == 1) {
-                return wire.parseFrom(piece.data.toByteArray(), RootMessage.class);
+                return RootMessage.ADAPTER.decode(piece.data);
             } else {
                 if (piece.thisPiece == 1) {
                     List<MessagePiece> queue = piecesQueues.get(piece.queueId);
@@ -93,7 +92,7 @@ public abstract class WearableConnection implements Runnable {
                         throw new IOException("Received " + piece.thisPiece + " but expected piece" + queue.size() + 1);
                     }
                     queue.add(piece);
-                    if (piece.thisPiece.equals(piece.totalPieces)) {
+                    if (piece.thisPiece == piece.totalPieces) {
                         piecesQueues.remove(piece.queueId);
                         ByteArrayOutputStream bos = new ByteArrayOutputStream();
                         for (MessagePiece messagePiece : queue) {
@@ -103,7 +102,7 @@ public abstract class WearableConnection implements Runnable {
                         if (!calculateDigest(bytes).equals(piece.digest)) {
                             throw new IOException("Merged pieces have digest " + calculateDigest(bytes) + ", but should be " + piece.digest);
                         }
-                        return wire.parseFrom(bytes, RootMessage.class);
+                        return RootMessage.ADAPTER.decode(bytes);
                     }
                 }
             }

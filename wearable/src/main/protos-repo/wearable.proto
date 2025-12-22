@@ -1,3 +1,4 @@
+
 /*
  * SPDX-FileCopyrightText: 2015, microG Project Team
  * SPDX-License-Identifier: Apache-2.0
@@ -157,3 +158,5 @@ message SyncTableEntry {
     optional string key = 1;
     optional int64 value = 2;
 }
+
+
