@@ -22,9 +22,8 @@ allprojects {
     group = 'org.microg'
     version = gitDescribeVersion()
 }
-
 subprojects {
     repositories {
-        jcenter()
+        mavenCentral()
     }
 }
